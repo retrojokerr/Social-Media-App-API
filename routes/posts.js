@@ -32,18 +32,39 @@ router.get('/posts', async (req, res) => {
 
 // Comment on a post
 router.post('/comments', authenticate, async (req, res) => {
-  try {
-    const { text, postId } = req.body;
-    const comment = new Comment({
-      text,
-      user: req.user.id,
-      post: postId
-    });
-    await comment.save();
-    res.status(201).json(comment);
-  } catch (error) {
-    res.status(500).json({ error: 'Error creating comment' });
-  }
-});
-
+    try {
+      const { text, postId } = req.body;
+  
+      // Validate input
+      if (!text || !postId) {
+        return res.status(400).json({ error: 'Text and postId are required' });
+      }
+  
+      const comment = new Comment({
+        text,
+        user: req.user.id,
+        post: postId
+      });
+  
+      // Save the comment to the database
+      await comment.save();
+  
+      // Populate the user info for the notification
+      await comment.populate('user', 'name');  // Just use populate() without execPopulate()
+  
+      // Emit a real-time notification for all connected clients
+      req.app.get('io').emit('newComment', {
+        text: comment.text,
+        postId: comment.post,
+        user: comment.user.name,  // Sending the populated user name
+        createdAt: comment.createdAt
+      });
+  
+      res.status(201).json(comment);
+    } catch (error) {
+      console.error('Error creating comment:', error);  // Log the error for debugging
+      res.status(500).json({ error: 'Error creating comment', message: error.message });
+    }
+  });
+  
 module.exports = router;
