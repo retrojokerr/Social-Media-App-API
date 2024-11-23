@@ -16,7 +16,8 @@ A RESTful API for a social media platform with features like user authentication
   - [Authentication](#authentication)
   - [Posts](#posts)
   - [Protected Routes](#protected-routes)
-- [License](#license)
+- [Running Real-Time Chat](#Running-Real-Time-Chat)
+- [License](#licenses)
 
 ## Features
 
@@ -133,7 +134,7 @@ Replace `your-mongodb-uri` and `your-jwt-secret` with your MongoDB connection st
       "Authorization": "Bearer <token>"
     }
     ```
-### Running Real-Time Chat
+## Running Real-Time Chat
 1. **Start the server**  
    Ensure the server is running using the command:
    ```bash
