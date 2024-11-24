@@ -43,6 +43,7 @@ A RESTful API for a social media platform with features like user authentication
 - **Authentication**: JSON Web Tokens (JWT), bcrypt
 - **Real-time**: Socket.io
 - **Frontend**: Static files served from `/client`
+- **Deployment**: Deployed on AWS (access using the link [https://www.chattydaadi.fun](https://www.chattydaadi.fun))
 
 ## Running Locally
 
@@ -170,7 +171,7 @@ Replace `your-mongodb-uri` and `your-jwt-secret` with your MongoDB connection st
 
 2. Steps to Test Real-Time Chat:
    1. Open Multiple Clients
-      - Open two or more browser tabs/windows and navigate to `https://www.chattydaadi.fun`
+      - Open two or more browser tabs/windows and navigate to [https://www.chattydaadi.fun](https://www.chattydaadi.fun)
    2. Navigate to the Chat Section.
    3. Send Messages:
       - In one browser tab, type a message in the chat interface and send it.
