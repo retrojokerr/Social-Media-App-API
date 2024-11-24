@@ -1,5 +1,9 @@
+
 // Connect to the WebSocket server
-const socket = io("http://localhost:5000"); // Replace with your server URL if hosted
+//const socket = io("wss://www.chattydaadi.fun"); // Replace with your server URL
+const socket = io(window.location.protocol + "//" + window.location.hostname);
+
+
 
 // Get DOM elements
 const chatBox = document.getElementById("chat-box");
@@ -28,6 +32,21 @@ sendButton.addEventListener("click", () => {
     addMessage(message, "sent"); // Add the message to the chat box as "sent"
     console.log("Message added to chat box as 'sent'"); // Debug: Confirm message addition
     messageInput.value = ""; // Clear the input
+  }
+});
+
+// Send a message when pressing "Enter" in the input field
+messageInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") { // Check if the pressed key is "Enter"
+    const message = messageInput.value.trim();
+    if (message) {
+      console.log("Sending message:", message); // Debug: Log the message being sent
+      socket.emit("chatMessage", { message, senderId: clientId }); // Include the sender ID
+      addMessage(message, "sent"); // Add the message to the chat box as "sent"
+      console.log("Message added to chat box as 'sent'"); // Debug: Confirm message addition
+      messageInput.value = ""; // Clear the input
+      event.preventDefault(); // Prevent default behavior of Enter (e.g., form submission)
+    }
   }
 });
 
