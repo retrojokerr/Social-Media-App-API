@@ -195,8 +195,7 @@ Replace `your-mongodb-uri` and `your-jwt-secret` with your MongoDB connection st
         "name": "Name Surname",
         "email": "name@example.com",
         "password": "password123"
-     }
-    ```
+     }```
   - Description: Registers a new user.
     
 2. Log In an Existing User
