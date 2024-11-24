@@ -17,6 +17,14 @@ A RESTful API for a social media platform with features like user authentication
   - [Posts](#posts)
   - [Protected Routes](#protected-routes)
 - [Running Real-Time Chat](#Running-Real-Time-Chat)
+- [Running the Deployed Link](#running-the-deployed-link)
+  - [Using Real-Time Chat](#using-real-time-chat)
+  - [API Calls Using Postman](#api-calls-using-postman)
+    - [Authentication](#authentication)
+    - [Post Management](#post-management)
+    - [Comments](#comments)
+    - [Protected Routes](#protected-routes)
+    - [Error Responses](#error-responses)
 - [License](#licenses)
 
 ## Features
@@ -134,7 +142,7 @@ Replace `your-mongodb-uri` and `your-jwt-secret` with your MongoDB connection st
       "Authorization": "Bearer <token>"
     }
     ```
-## Running Real-Time Chat
+### Running Real-Time Chat Locally
 1. **Start the server**  
    Ensure the server is running using the command:
    ```bash
@@ -153,7 +161,118 @@ Replace `your-mongodb-uri` and `your-jwt-secret` with your MongoDB connection st
 
 ![Screenshot 2024-11-23 063924](https://github.com/user-attachments/assets/ff3ba19b-1042-4af2-8781-fbad7340e523)
 
+# Running the deployed link
 
+## Using Real-Time Chat
+
+1. Prerequisites:
+   - Browser with multiple tabs/windows.
+
+2. Steps to Test Real-Time Chat:
+   1. Open Multiple Clients
+      - Open two or more browser tabs/windows and navigate to `https://www.chattydaadi.fun`
+   2. Navigate to the Chat Section.
+   3. Send Messages:
+      - In one browser tab, type a message in the chat interface and send it.
+      - Check that the message appears instantly in all open tabs or browser windows.
+   4. Test Notifications:
+      - Ensure real-time notifications are displayed when comments are made on the post (through API testing softwares like Postman).
+   5. Simulate Multi-User Interaction:
+      - Open a third browser or session to simulate a new user joining the chat.
+      - Send messages from all active clients and verify they sync in real time.
+
+![image](https://github.com/user-attachments/assets/eff651b5-672d-4869-8840-cf1a4bec3e6e)
+
+     
+## API Calls Using Postman
+### Authentication
+
+1. Register a New User
+   - Endpoint: `POST https://www.chattydaadi.fun/api/auth/signup`
+   - Body (JSON):
+     ```bash
+     {
+        "name": "Name Surname",
+        "email": "name@example.com",
+        "password": "password123"
+     }
+    ```
+  - Description: Registers a new user.
+    
+2. Log In an Existing User
+   - Endpoint: `POST https://www.chattydaadi.fun/api/auth/login`
+   - Body (JSON):
+     ```bash
+     {
+        "email": "name@example.com",
+        "password": "password123"
+     }
+    ```
+  - Description: Authenticates a user and returns a token.
+
+### Post Management
+
+1. Get All Posts
+   - Endpoint: `GET https://www.chattydaadi.fun/api/posts`
+   - Description: Fetches all posts.
+  
+2. Create a New Post
+   - Endpoint: `POST https://www.chattydaadi.fun/api/posts`
+   - Headers:
+     ```bash
+     {
+        "Authorization": "Bearer <token>"
+     }
+     ```
+   - Body (JSON):
+     ```bash
+     {
+        "text": "This is a new post",
+        "mediaUrl": "http://example.com/image.jpg"
+     }
+    ```
+  - Description: Creates a new post (requires authentication).
+
+### Comments
+
+1. Add a Comment
+   - Endpoint: `POST https://www.chattydaadi.fun/api/comments`
+   - Headers:
+     ```bash
+     {
+        "Authorization": "Bearer <token>"
+     }
+     ```
+   - Body (JSON):
+     ```bash
+     {
+        "text": "Great post!",
+        "postId": "<post-id>"
+     }
+     ```
+   - Description: Adds a comment to a post (requires authentication).
+
+### Protected Routes
+
+1. Access Protected Data
+   - Endpoint: `GET https://www.chattydaadi.fun/api/protected`
+   - Headers:
+     ```bash
+     {
+        "Authorization": "Bearer <token>"
+     }
+     ```
+   - Description: Fetches data from a protected route.
+
+### Error Responses
+If you encounter any error:
+  - Ensure your Authorization header contains a valid JWT token.
+  - Verify the postId or mediaUrl values exist and are properly formatted.
+  - Check your environment variables on the server (for debugging authentication issues).
+
+
+
+   
 ### Licences
 This project is licensed under the MIT License.
 
