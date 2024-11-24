@@ -36,7 +36,7 @@ A RESTful API for a social media platform with features like user authentication
 - **Real-time**: Socket.io
 - **Frontend**: Static files served from `/client`
 
-## Getting Started
+## Running Locally
 
 ### Prerequisites
 
